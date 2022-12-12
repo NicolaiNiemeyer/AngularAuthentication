@@ -1,0 +1,30 @@
+<!--The Login form validates username and password: minLength=6-->
+
+<div class="login-root">
+    <form [formGroup]="loginForm">
+        <div class="form-outer">
+            <div class="form">
+                <div class="form-group padding-horizontal--48">
+                    <div class="username-box" [class.error]="loginForm.controls['username'].dirty && loginForm.hasError('required', 'username')">
+                        <span class="fa fa-user"></span>
+                        <input formControlName="username" type="text" placeholder="Username" required/>
+                    </div>
+                    <small *ngIf="loginForm.controls['username'].dirty && loginForm.hasError('required', 'username')" class="text-danger">*Username is required</small>
+                    <div class="password-box" [class.error]="loginForm.controls['password'].dirty && loginForm.hasError('required', 'password')">
+                        <span class="fa fa-lock"></span>
+                        <input formControlName="password" [type]="hide" placeholder="Password" required />
+                        <span (click)="hideShowPass()" class="fa {{ eyeIcon }}"></span>
+                    </div>
+                    <small *ngIf="loginForm.controls['password'].dirty && loginForm.hasError('required', 'password')" class="text-danger">*Password is required</small>
+                    <div class="forget-password-box">
+                        <a id="forget">Forgot Password?</a>
+                    </div>
+                    <button (click)="onLogin()" class="login-button">Login</button>
+                    <div>Dont have an account? <a id="forget" routerLink="/signup">Sign up</a></div>
+                </div>
+            </div>
+        </div>
+
+    </form>
+
+</div>

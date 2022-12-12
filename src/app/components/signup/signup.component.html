@@ -1,0 +1,27 @@
+
+
+<div class="signup-root">
+    <form [formGroup]="signUpForm">
+        <div class="form-outer">
+            <div class="form">
+                <div class="form-group">
+                    <div class="username-box" [class.error]="signUpForm.controls['userName'].dirty && signUpForm.hasError('required', 'userName')">
+                        <span class="fa fa-user"></span>
+                        <input formControlName="userName" type="text" placeholder="Username" />
+                    </div>
+                    <small *ngIf="signUpForm.controls['userName'].dirty && signUpForm.hasError('required', 'userName')" class="text-danger">Username is required</small>
+                    <div class="password-box" [class.error]="signUpForm.controls['password'].dirty && signUpForm.hasError('required', 'password')">
+                        <span class="fa fa-lock"></span>
+                        <input formControlName="password" [type]="hide" placeholder="Password" required />
+                        <span (click)="hideShowPass()" class="fa {{ eyeIcon }}"></span>
+                    </div>
+                    <small *ngIf="signUpForm.controls['password'].dirty && signUpForm.hasError('required', 'password')" class="text-danger">Password is required</small>
+                    <button (click)="onSignUp()" class="signup-button">Sign up</button>
+                    <div>Already have an account? <a id="forget" routerLink="/login">Login</a></div>
+                </div>
+            </div>
+        </div>
+
+    </form>
+
+</div>
