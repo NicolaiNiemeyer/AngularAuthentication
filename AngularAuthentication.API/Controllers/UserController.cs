@@ -1,6 +1,7 @@
 using AngularAuthentication.API.Context;
 using AngularAuthentication.API.Models;
 using AngularAuthentication.API.Services;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
@@ -83,10 +84,12 @@ namespace AngularAuthentication.API.Controllers
       });
     }
 
-    //Api call to check for user authentication before sending resource to front-end
+    //Api call to check for user authentication before sending resource to front-end.
+    [Authorize]   //protects the API by preventing unautherized access to this method and get a list of all users.
     [HttpGet]
     public async Task<ActionResult<User>> GetAllUsers()
     {
+      //list of all users that have registered
       return Ok(await dbContext.Users.ToListAsync());
     }
 
