@@ -24,7 +24,7 @@ export class AuthService {
     this.router.navigate(['login']);
   }
   //Logic to check for token. If there is a token, save it in local storage (singleton service)
-  storeToken(tokenValue: string) {
+  setToken(tokenValue: string) {
     localStorage.setItem('token', tokenValue)
   }
 

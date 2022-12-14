@@ -12,12 +12,12 @@ export class DashboardComponent implements OnInit {
   public users: any = [];
   constructor(private api: ApiService, private auth: AuthService) { }
 
-  ngOnInit(): void {
-    //display this part when logged in and navigated to dashboard
-    //ex: List of users
-    this.api.getUsers().subscribe(res => {
-      this.users = res;
-    })
+  ngOnInit() {
+    this.api.getUsers()
+      .subscribe(res => {
+        this.users = res;
+      })
+    console.log(this.users);
   }
 
   logout() {

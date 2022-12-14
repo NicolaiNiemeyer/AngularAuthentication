@@ -85,7 +85,7 @@ namespace AngularAuthentication.API.Controllers
     }
 
     //Api call to check for user authentication before sending resource to front-end.
-    [Authorize]   //protects the API by preventing unautherized access to this method and get a list of all users.
+    //[Authorize]   //protects the API by preventing unauthorized access to this method and get a list of all users.
     [HttpGet]
     public async Task<ActionResult<User>> GetAllUsers()
     {

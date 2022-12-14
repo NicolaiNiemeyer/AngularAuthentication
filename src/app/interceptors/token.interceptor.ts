@@ -4,17 +4,20 @@ import {
   HttpRequest,
   HttpHandler,
   HttpEvent,
-  HttpInterceptor
+  HttpInterceptor,
+  HttpErrorResponse
 } from '@angular/common/http';
-import { Observable } from 'rxjs';
+import { catchError, Observable, throwError } from 'rxjs';
 import { AuthService } from '../services/auth.service';
+import { NgToastService } from 'ng-angular-popup';
+import { Router } from '@angular/router';
 
 @Injectable()
 export class TokenInterceptor implements HttpInterceptor {
 
-  constructor(private auth: AuthService) { }
+  constructor(private auth: AuthService, private toast: NgToastService, private router: Router) { }
 
-  intercept(request: HttpRequest<unknown>, next: HttpHandler): Observable<HttpEvent<unknown>> {
+  intercept(request: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
     const myToken = this.auth.getToken();
 
     //Logic to modify header request. The header requests a token to send back to the back-end
@@ -24,7 +27,17 @@ export class TokenInterceptor implements HttpInterceptor {
       })
     }
     //send the request
-    return next.handle(request);
+    return next.handle(request).pipe(
+      catchError((err: any) => {
+        if (err instanceof HttpErrorResponse) {
+          if (err.status === 401) {
+            this.toast.warning({ detail: "Warning", summary: "Token is expired, login again" });
+            this.router.navigate(['login'])
+          }
+        }
+        return throwError(() => new Error("an error occured"))
+      })
+    );
 
     //implement this in app.module.ts provider
   }

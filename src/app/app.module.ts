@@ -1,6 +1,6 @@
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { NgModule } from '@angular/core';
-import { ReactiveFormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { BrowserModule } from '@angular/platform-browser';
 import { NgToastModule } from 'ng-angular-popup';
 
@@ -22,6 +22,7 @@ import { TokenInterceptor } from './interceptors/token.interceptor';
     BrowserModule,
     AppRoutingModule,
     ReactiveFormsModule,
+    FormsModule,
     HttpClientModule,    //needed for api calls
     NgToastModule
   ],
