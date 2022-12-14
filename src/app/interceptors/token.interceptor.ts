@@ -18,7 +18,8 @@ export class TokenInterceptor implements HttpInterceptor {
   constructor(private auth: AuthService, private toast: NgToastService, private router: Router) { }
 
   intercept(request: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
-    const myToken = this.auth.getToken();
+    const headers = new Headers();
+    headers = this.auth.getToken();
 
     //Logic to modify header request. The header requests a token to send back to the back-end
     if (myToken) {
