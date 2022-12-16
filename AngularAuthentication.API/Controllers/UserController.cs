@@ -84,14 +84,8 @@ namespace AngularAuthentication.API.Controllers
       });
     }
 
-    //Api call to check for user authentication before sending resource to front-end.
-    //[Authorize]   //protects the API by preventing unauthorized access to this method and get a list of all users.
-    [HttpGet]
-    public async Task<ActionResult<User>> GetAllUsers()
-    {
-      //list of all users that have registered
-      return Ok(await dbContext.Users.ToListAsync());
-    }
+    
+    
 
     private Task<bool> CheckUsernameExistAsync(string username) => dbContext.Users.AnyAsync(x => x.Username == username);
 
@@ -121,7 +115,7 @@ namespace AngularAuthentication.API.Controllers
       var key = Encoding.ASCII.GetBytes("secret json web token key.....");  //the key must be at least 16 characters in length, when using ASCII UTF8.
       var identity = new ClaimsIdentity(new Claim[]
       {
-        new Claim(ClaimTypes.Name, user.Username),
+        new Claim(ClaimTypes.Name, $"{user.Username}"),
       });
       var credentials = new SigningCredentials(new SymmetricSecurityKey(key), SecurityAlgorithms.HmacSha256);
 
@@ -136,5 +130,13 @@ namespace AngularAuthentication.API.Controllers
 
     }
 
+    //Api call to check for user authentication before sending resource to front-end.
+    /*[Authorize]*/   //protects the API by preventing unauthorized access to this method and get a list of all users.
+    [HttpGet]
+    public async Task<ActionResult<User>> GetAllUsers()
+    {
+      //list of all users that have registered
+      return Ok(await dbContext.Users.ToListAsync());
+    }
   }
 }

@@ -1,6 +1,6 @@
 <p>dashboard works!</p>
 <button (click)="logout()" >Log out</button>
 
-<ul *ngFor="let user of users | async">
+<ul *ngFor="let user of users">
     <li>{{user.username}}</li>
 </ul>
