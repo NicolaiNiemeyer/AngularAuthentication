@@ -23,25 +23,12 @@ export class TokenInterceptor implements HttpInterceptor {
     //Logic to modify header request. The header requests a token to send back to the back-end
     if (myToken) {
       request = request.clone({
-        setHeaders: { Authorization: `Bearer ${myToken}` }  //stringinterpolation in ES6
+        setHeaders: { Authorization: `${myToken}` }  //stringinterpolation in ES6
       })
     }
     //send the request
     return next.handle(request)
-      .pipe(
-        catchError((error: HttpErrorResponse) => {
-          let errorMsg = '';
-          if (error.error instanceof ErrorEvent) {
-            console.log("this is client side error");
-            errorMsg = `Error: ${error.error.message}`;
-          } else {
-            console.log("This is serve side error");
-            errorMsg = `Error Code: ${error.status}, Message: ${error.message}`;
-          }
-          console.log(errorMsg);
-          return throwError(() => new Error(errorMsg));
-        })
-      )
+
 
     //implement this in app.module.ts provider
   }
